@@ -39,7 +39,7 @@ export class CategoryService {
           return this.repository.save(category);
         }
       
-        async listarAnalysis(): Promise<Category[]> {
+        async listarCategory(): Promise<Category[]> {
           return this.repository.findAllActive();
         }
       
