@@ -42,7 +42,6 @@ export class createLivestreamDto{
     @Min(0.0, {message: 'currentViewers must be at least 0.0.'})
     @Max(999999999, {message: 'currentViewers must be less than 1,000,000,000.'})
     @IsNumber({},{message: 'currentViewers must be a Number type(Integer/Float/Decimal).'})
-    @Transform(({ value }) => value.trim().replace(/\s+/g, ' '))
     currentViewers: number;
 
     @IsOptional()

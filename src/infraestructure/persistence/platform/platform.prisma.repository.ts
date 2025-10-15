@@ -8,7 +8,7 @@ export class PlatformPrismaRepository implements PlatformRepository{
     constructor(private prisma: PrismaService) {}
 
     async findById(uuid: string): Promise<Platform | null> {
-        const data = await this.prisma.platform.findUnique({
+        const data = await this.prisma.platform.findFirst({
                                     where: { uuid },
         });
                                 
@@ -16,7 +16,7 @@ export class PlatformPrismaRepository implements PlatformRepository{
     }
     
     async findByName(name: string): Promise<Platform | null> {
-        const data = await this.prisma.platform.findUnique({
+        const data = await this.prisma.platform.findFirst({
                                     where: { name },
         });
                                 

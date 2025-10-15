@@ -8,7 +8,7 @@ export class VODPrismaRepository implements VideoOnDemandRepository{
     constructor(private prisma: PrismaService) {}
 
     async findById(uuid: string): Promise<VideoOnDemand | null> {
-        const data = await this.prisma.videoOnDemand.findUnique({
+        const data = await this.prisma.videoOnDemand.findFirst({
                                             where: { uuid },
                                             include: {
                                                 channel: {
@@ -27,7 +27,7 @@ export class VODPrismaRepository implements VideoOnDemandRepository{
     }
     
     async findByTitle(title: string): Promise<VideoOnDemand | null> {
-        const data = await this.prisma.videoOnDemand.findUnique({
+        const data = await this.prisma.videoOnDemand.findFirst({
                                             where: { title },
                                             include: {
                                                 channel: {

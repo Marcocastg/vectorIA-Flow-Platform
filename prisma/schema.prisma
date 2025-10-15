@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -159,7 +158,7 @@ model DataSetKick {
   hoursStreamed     Int?      @map("hoursStreamed_dataSetKick")
   totalFollowers    Int?      @map("totalFollowers_dataSetKick")
   language          String?   @map("language_dataSetKick")
-  rankVariation     String?   @map("rankVariation_dataSetKick")
+  rankVariation     Int?   @map("rankVariation_dataSetKick")
   fechaRegistro     String?   @map("fechaRegistro_dataSetKick")
 
   @@map("_datasetkick")

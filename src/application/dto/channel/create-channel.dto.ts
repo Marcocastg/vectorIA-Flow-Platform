@@ -17,7 +17,6 @@ export class createChannelDto{
     @Min(0.0, {message: 'followers must be at least 0.0.'})
     @Max(999999999, {message: 'followers must be less than 1,000,000,000.'})
     @IsNumber({},{message: 'followers must be a Number type(Integer/Float/Decimal).'})
-    @Transform(({ value }) => value.trim().replace(/\s+/g, ' '))
     followers: number;
 
     @MinLength(1, {message: 'lastSeenAt must have at least 1 character.'})

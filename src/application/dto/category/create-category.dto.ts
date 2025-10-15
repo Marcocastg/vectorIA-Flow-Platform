@@ -17,7 +17,6 @@ export class createCategoryDto{
     @Min(0.0, {message: 'currentViewers must be at least 0.0.'})
     @Max(99999999, {message: 'currentViewers must be less than 100,000,000.'})
     @IsNumber({},{message: 'currentViewers must be a Number type(Integer/Float/Decimal).'})
-    @Transform(({ value }) => value.trim().replace(/\s+/g, ' '))
     currentViewers: number;
 
     @IsUUID(4,{message: 'platformId must be in UUID format.'})

@@ -8,7 +8,7 @@ export class CategoryPrismaRepository implements CategoryRepository {
     constructor(private prisma: PrismaService) {}
 
     async findById(uuid: string): Promise<Category | null> {
-        const data = await this.prisma.category.findUnique({
+        const data = await this.prisma.category.findFirst({
                     where: { uuid },
                     include: {
                         platform: {
@@ -25,7 +25,7 @@ export class CategoryPrismaRepository implements CategoryRepository {
         return data ? Category.fromPrisma(data) : null;
     }
     async findByName(name: string): Promise<Category | null> {
-        const data = await this.prisma.category.findUnique({
+        const data = await this.prisma.category.findFirst({
                     where: { name },
                     include: {
                         platform: {

@@ -8,7 +8,7 @@ export class AnalysisPrismaRepository implements AnalysisRepository {
     constructor(private prisma : PrismaService){}
     
     async findById(uuid: string): Promise<Analysis | null> {
-        const data = await this.prisma.analysis.findUnique({
+        const data = await this.prisma.analysis.findFirst({
                       where: { uuid },
                       include: {
                         user: {
@@ -36,7 +36,7 @@ export class AnalysisPrismaRepository implements AnalysisRepository {
                 return data ? Analysis.fromPrisma(data) : null;
     }
     async findByTitle(title: string): Promise<Analysis | null> {
-            const data = await this.prisma.analysis.findUnique({
+            const data = await this.prisma.analysis.findFirst({
                       where: { title },
                       include: {
                         user: {

@@ -1,6 +1,4 @@
-import { Analysis } from 'src/core/entities/analysis/analysis.entity';
-import { Categoria } from 'src/core/entities/categoria/categoria.entity';
-import { Category } from 'src/core/entities/category/category.entity';
+
 import { Channel } from 'src/core/entities/channel/channel.entity';
 import { IDomainEvent } from 'src/shared/domain/events/domain-event.interface';
 
@@ -14,6 +12,6 @@ export class ChannelEvent implements IDomainEvent {
   }
 
   public getAggregateId(): string {
-    return this.channel.uuid;
+    return this.channel.uuid!;
   }
 }

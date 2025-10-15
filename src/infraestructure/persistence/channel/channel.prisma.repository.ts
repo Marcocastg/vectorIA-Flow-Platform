@@ -8,7 +8,7 @@ export class ChannelPrismaRepository implements ChannelRepository{
     constructor(private prisma: PrismaService) {}
 
     async findById(uuid: string): Promise<Channel | null> {
-        const data = await this.prisma.channel.findUnique({
+        const data = await this.prisma.channel.findFirst({
                             where: { uuid },
                             include: {
                                 platform: {
@@ -26,7 +26,7 @@ export class ChannelPrismaRepository implements ChannelRepository{
     }
 
     async findByName(name: string): Promise<Channel | null> {
-        const data = await this.prisma.channel.findUnique({
+        const data = await this.prisma.channel.findFirst({
                             where: { name },
                             include: {
                                 platform: {

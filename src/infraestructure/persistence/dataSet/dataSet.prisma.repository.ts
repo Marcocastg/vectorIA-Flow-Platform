@@ -8,7 +8,7 @@ export class dataSetPrismaRepository implements DataSetRepository{
     constructor(private prisma: PrismaService) {}
 
     async findById(uuid: string): Promise<dataSet | null> {
-        const data = await this.prisma.dataSet.findUnique({
+        const data = await this.prisma.dataSet.findFirst({
                                     where: { uuid },
                             });
                                 
@@ -16,7 +16,7 @@ export class dataSetPrismaRepository implements DataSetRepository{
     }
 
     async findByName(channelName: string): Promise<dataSet | null> {
-        const data = await this.prisma.dataSet.findUnique({
+        const data = await this.prisma.dataSet.findFirst({
                                     where: { channelName },
                             });
                                 
@@ -35,7 +35,7 @@ export class dataSetPrismaRepository implements DataSetRepository{
         const data = await this.prisma.dataSet.create({
                                       data: {
                                         channelName: dataSetdata.channelName,
-                                        averageVieweres: dataSetdata.averageViewers,
+                                        averageViewers: dataSetdata.averageViewers,
                                         hoursWatched: dataSetdata.hoursWatched,
                                         maxViewers: dataSetdata.maxViewers,
                                         minutesStreamed: dataSetdata.minutesStreamed,

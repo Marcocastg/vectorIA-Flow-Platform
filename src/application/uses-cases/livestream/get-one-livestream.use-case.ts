@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { EventEmitter2 } from '@nestjs/event-emitter';import { Analysis } from 'src/core/entities/analysis/analysis.entity';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 ;
 import { Livestream } from 'src/core/entities/livestream/livestream.entity';
 import { LivestreamService } from 'src/core/services/livestream/livestream/livestream.service';

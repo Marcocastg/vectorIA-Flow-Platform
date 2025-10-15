@@ -25,37 +25,31 @@ export class createdataSetKickDto{
     @Min(0.0, {message: 'rank must be at least 0.0.'})
     @Max(999999999, {message: 'rank must be less than 1,000,000,000.'})
     @IsNumber({},{message: 'rank must be a Number type(Integer/Float/Decimal).'})
-    @Transform(({ value }) => value.trim().replace(/\s+/g, ' '))
     rank: number;
 
     @Min(0.0, {message: 'averageViewers must be at least 0.0.'})
     @Max(999999999, {message: 'averageViewers must be less than 1,000,000,000.'})
     @IsNumber({},{message: 'averageViewers must be a Number type(Integer/Float/Decimal).'})
-    @Transform(({ value }) => value.trim().replace(/\s+/g, ' '))
     averageViewers: number;
 
     @Min(0.0, {message: 'hoursWatched must be at least 0.0.'})
     @Max(999999999, {message: 'hoursWatched must be less than 1,000,000,000.'})
     @IsNumber({},{message: 'hoursWatched must be a Number type(Integer/Float/Decimal).'})
-    @Transform(({ value }) => value.trim().replace(/\s+/g, ' '))
     hoursWatched: number;
 
     @Min(0.0, {message: 'maxViewers must be at least 0.0.'})
     @Max(999999999, {message: 'maxViewers must be less than 1,000,000,000.'})
     @IsNumber({},{message: 'maxViewers must be a Number type(Integer/Float/Decimal).'})
-    @Transform(({ value }) => value.trim().replace(/\s+/g, ' '))
     maxViewers: number;
 
     @Min(0.0, {message: 'hoursStreamed must be at least 0.0.'})
     @Max(999999999, {message: 'hoursStreamed must be less than 1,000,000,000.'})
     @IsNumber({},{message: 'hoursStreamed must be a Number type(Integer/Float/Decimal).'})
-    @Transform(({ value }) => value.trim().replace(/\s+/g, ' '))
     hoursStreamed: number;
 
     @Min(0.0, {message: 'totalFollowers must be at least 0.0.'})
     @Max(999999999, {message: 'totalFollowers must be less than 1,000,000,000.'})
     @IsNumber({},{message: 'totalFollowers must be a Number type(Integer/Float/Decimal).'})
-    @Transform(({ value }) => value.trim().replace(/\s+/g, ' '))
     totalFollowers: number;
 
     @MinLength(1, {message: 'language must have at least 1 character.'})
@@ -71,7 +65,6 @@ export class createdataSetKickDto{
     @Min(0.0, {message: 'rankVariation must be at least 0.0.'})
     @Max(999999999, {message: 'rankVariation must be less than 1,000,000,000.'})
     @IsNumber({},{message: 'rankVariation must be a Number type(Integer/Float/Decimal).'})
-    @Transform(({ value }) => value.trim().replace(/\s+/g, ' '))
     rankVariation: number;
 
     @MinLength(1, {message: 'fechaRegistro must have at least 1 character.'})

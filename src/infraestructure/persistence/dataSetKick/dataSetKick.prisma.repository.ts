@@ -8,7 +8,7 @@ export class dataSetKickPrismaRepository implements DataSetKickRepository{
     constructor(private prisma: PrismaService) {}
 
     async findById(uuid: string): Promise<dataSetKick | null> {
-        const data = await this.prisma.dataSetKick.findUnique({
+        const data = await this.prisma.dataSetKick.findFirst({
                                             where: { uuid },
                                     });
                                         
@@ -16,7 +16,7 @@ export class dataSetKickPrismaRepository implements DataSetKickRepository{
     }
 
     async findByName(channelName: string): Promise<dataSetKick | null> {
-        const data = await this.prisma.dataSetKick.findUnique({
+        const data = await this.prisma.dataSetKick.findFirst({
                                             where: { channelName },
                                     });
                                         

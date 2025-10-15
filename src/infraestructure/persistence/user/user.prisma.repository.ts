@@ -8,7 +8,7 @@ export class UserPrismaRepository implements UserRepository{
     constructor(private prisma: PrismaService) {}
 
     async findById(uuid: string): Promise<User | null> {
-        const data = await this.prisma.user.findUnique({
+        const data = await this.prisma.user.findFirst({
                                             where: { uuid },
                 });
                                         
@@ -16,7 +16,7 @@ export class UserPrismaRepository implements UserRepository{
     }
 
     async findByFullName(firstName: string, lastName: string): Promise<User | null> {
-        const data = await this.prisma.user.findUnique({
+        const data = await this.prisma.user.findFirst({
                                             where: { firstName, lastName },
                 });
                                         
@@ -24,7 +24,7 @@ export class UserPrismaRepository implements UserRepository{
     }
 
     async findByEmail(email: string): Promise<User | null> {
-        const data = await this.prisma.user.findUnique({
+        const data = await this.prisma.user.findFirst({
                                             where: { email },
                 });
                                         

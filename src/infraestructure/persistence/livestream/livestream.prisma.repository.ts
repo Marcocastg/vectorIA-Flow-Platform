@@ -8,7 +8,7 @@ export class LivestreamPrismaRepository implements LivestreamRepository{
     constructor(private prisma: PrismaService) {}
 
     async findById(uuid: string): Promise<Livestream | null> {
-        const data = await this.prisma.livestream.findUnique({
+        const data = await this.prisma.livestream.findFirst({
                                     where: { uuid },
                                     include: {
                                         channel: {
@@ -34,7 +34,7 @@ export class LivestreamPrismaRepository implements LivestreamRepository{
     }
 
     async findByTitle(title: string): Promise<Livestream | null> {
-        const data = await this.prisma.livestream.findUnique({
+        const data = await this.prisma.livestream.findFirst({
                                     where: { title },
                                     include: {
                                         channel: {

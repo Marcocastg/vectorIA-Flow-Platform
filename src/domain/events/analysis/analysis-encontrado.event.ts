@@ -1,5 +1,4 @@
 import { Analysis } from 'src/core/entities/analysis/analysis.entity';
-import { Categoria } from 'src/core/entities/categoria/categoria.entity';
 import { IDomainEvent } from 'src/shared/domain/events/domain-event.interface';
 
 export class AnalysisEncontradoEvent implements IDomainEvent {
