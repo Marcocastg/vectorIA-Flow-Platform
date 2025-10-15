@@ -90,6 +90,8 @@ export class AnalysisPrismaRepository implements AnalysisRepository {
 
 
             const res = Analysis.fromPrismaList(data);
+
+            return res;
         }
     async save(analysis: Analysis): Promise<Analysis> {
             const data = await this.prisma.analysis.create({

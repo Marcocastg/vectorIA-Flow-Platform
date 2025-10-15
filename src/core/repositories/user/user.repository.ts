@@ -2,7 +2,7 @@ import { User } from "src/core/entities/user/user.entity";
 
 export interface UserRepository {
   findById(uuid: string): Promise<User | null>;
-  findByName(nombre: string): Promise<User | null>;
+  findByFullName(firstName: string, lastName: string): Promise<User | null>;
   findByEmail(email: string): Promise<User | null>;
   findAllActive(): Promise<User[]>;
   save(user: User): Promise<User>;

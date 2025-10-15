@@ -13,31 +13,113 @@ export class CategoryPrismaRepository implements CategoryRepository {
                     include: {
                         platform: {
                             select: {
-                                uuid: true,
-                                firstName: true,
-                                lastName: true,
-                                email: true,
+                                uuid: false,
+                                name: true,
+                                url: true,
+                                logoUrl: false,
                         }
                     },
                 }
             });
                 
-        return data ? Analysis.fromPrisma(data) : null;
+        return data ? Category.fromPrisma(data) : null;
     }
-    findByName(nombre: string): Promise<Category | null> {
-        throw new Error("Method not implemented.");
+    async findByName(name: string): Promise<Category | null> {
+        const data = await this.prisma.category.findUnique({
+                    where: { name },
+                    include: {
+                        platform: {
+                            select: {
+                                uuid: false,
+                                name: true,
+                                url: true,
+                                logoUrl: false,
+                        }
+                    },
+                }
+            });
+                
+        return data ? Category.fromPrisma(data) : null;
     }
-    findAllActive(): Promise<Category[]> {
-        throw new Error("Method not implemented.");
+    async findAllActive(): Promise<Category[]> {
+        const data = await this.prisma.category.findMany({
+                    include: {
+                        platform: {
+                            select: {
+                                uuid: false,
+                                name: true,
+                                url: true,
+                                logoUrl: false,
+                        }
+                    },
+                }
+            });
+                
+        const respuesta = Category.fromPrismaList(data);
+                
+        return respuesta;
     }
-    save(category: Category): Promise<Category> {
-        throw new Error("Method not implemented.");
+    async save(category: Category): Promise<Category> {
+        const data = await this.prisma.category.create({
+                      data: {
+                        name: category.name,
+                        currentViewers: category.currentViewers,
+                        platform: {
+                          connect: {
+                            uuid: category.platformId,
+                          }
+                        },
+                      },
+                      include: {
+                                platform: {
+                                    select: {
+                                        uuid: false,
+                                        name: true,
+                                        url: true,
+                                        logoUrl: false,
+                                }
+                            },
+                        }
+                    });
+        
+                    return Category.fromPrisma(data);
     }
-    update(uuid: string, category: Partial<Category>): Promise<Category> {
-        throw new Error("Method not implemented.");
+    async update(uuid: string, category: Partial<Category>): Promise<Category> {
+        const dataUpdate: any = {
+                name: category.name,
+                currentViewers: category.currentViewers,
+              };
+        
+              if(category.platformId){
+                dataUpdate.platform = {
+                  connect: {
+                    uuid: category.platformId
+                  }
+                };
+              }
+        
+              const data = await this.prisma.category.update({
+                            where: { uuid },
+                            data: dataUpdate,
+                            include: {
+                                platform: {
+                                    select: {
+                                        uuid: false,
+                                        name: true,
+                                        url: true,
+                                        logoUrl: false,
+                                    }
+                                },
+                            }
+                          });
+                      return Category.fromPrisma(data);
     }
-    delete(uuid: string): Promise<Category> {
-        throw new Error("Method not implemented.");
+    async delete(uuid: string): Promise<Category> {
+        const data = await this.prisma.category.delete({
+                                  where: { uuid },
+                            });
+                            
+        return Category.fromPrisma(data);
     }
 
     
