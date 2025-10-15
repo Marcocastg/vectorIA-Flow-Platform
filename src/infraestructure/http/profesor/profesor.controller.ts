@@ -24,7 +24,10 @@ export class ProfesorController {
         const result = await this.createUseCase.execute(dtoProfesor);
 
         if(result.isFailure){
-            throw new HttpException(result.error.message, HttpStatus.BAD_REQUEST);
+          if (result.error) {
+              throw new HttpException(result.error.message, HttpStatus.BAD_REQUEST);
+            }
+          throw new HttpException(result.error.message, HttpStatus.BAD_REQUEST);
         }
 
         return {

@@ -11,22 +11,22 @@ import { PlatformEvent } from 'src/domain/events/platform/platform-creada.event'
 import { Result } from 'src/shared/domain/result/result';
 
 @Injectable()
-export class CreatePlatformUseCase {
+export class CreateLivestreamUseCase {
   constructor(
-    private readonly platformService: PlatformService,
+    private readonly livestreamService: LivestreamService,
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async execute(
-    dto: createPlatformDto,
-  ): Promise<Result<Platform>> {
+    dto: createLivestreamDto,
+  ): Promise<Result<Livestream>> {
     
     const createDto = {...dto};
 
     try {
-      const platform = await this.platformService.crearPlatform(createDto);
-      this.eventEmitter.emit('platform.creado', new PlatformEvent(platform));
-      return Result.ok(platform);
+      const livestream = await this.livestreamService.crearLivestream(createDto);
+      this.eventEmitter.emit('livestream.creado', new LivestreamEvent(livestream));
+      return Result.ok(livestream);
     } catch (error) {
       return Result.fail(error);
     }
