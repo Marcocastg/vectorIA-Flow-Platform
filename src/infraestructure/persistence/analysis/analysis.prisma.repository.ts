@@ -7,23 +7,27 @@ import { PrismaService } from "src/core/services/prisma/prisma.service";
 export class AnalysisPrismaRepository implements AnalysisRepository {
     constructor(private prisma : PrismaService){}
     
-    async findById(id: string): Promise<Analysis | null> {
+    async findById(uuid: string): Promise<Analysis | null> {
         const data = await this.prisma.analysis.findUnique({
-                      where: { id },
+                      where: { uuid },
                       include: {
                         user: {
                           select: {
                             uuid: true,
                             firstName: true,
                             lastName: true,
+                            password: false,
                             email: true,
+                            companyName: false,
                       }
                     },
                     channel: {
                           select:{
                             uuid: true,
                             name: true,
+                            followers: false,
                             lastSeenAt: true,
+                            description: false,
                           }
                         },
                   }
@@ -32,19 +36,155 @@ export class AnalysisPrismaRepository implements AnalysisRepository {
                 return data ? Analysis.fromPrisma(data) : null;
     }
     async findByTitle(title: string): Promise<Analysis | null> {
-            throw new Error("Method not implemented.");
+            const data = await this.prisma.analysis.findUnique({
+                      where: { title },
+                      include: {
+                        user: {
+                          select: {
+                            uuid: true,
+                            firstName: true,
+                            lastName: true,
+                            password: false,
+                            email: true,
+                            companyName: false,
+                      }
+                    },
+                    channel: {
+                          select:{
+                            uuid: true,
+                            name: true,
+                            followers: false,
+                            lastSeenAt: true,
+                            description: false,
+                          }
+                        },
+                  }
+                });
+                
+                return data ? Analysis.fromPrisma(data) : null;
         }
     async findAllActive(): Promise<Analysis[]> {
-            throw new Error("Method not implemented.");
+            const data = await this.prisma.analysis.findMany({
+                      include: {
+                        user: {
+                          select: {
+                            uuid: true,
+                            firstName: true,
+                            lastName: true,
+                            password: false,
+                            email: true,
+                            companyName: false,
+                      }
+                    },
+                    channel: {
+                          select:{
+                            uuid: true,
+                            name: true,
+                            followers: false,
+                            lastSeenAt: true,
+                            description: false,
+                          }
+                        },
+                  }
+                });
+
+
+            const res = Analysis.fromPrismaList(data);
         }
     async save(analysis: Analysis): Promise<Analysis> {
-            throw new Error("Method not implemented.");
+            const data = await this.prisma.analysis.create({
+              data: {
+                title: analysis.title,
+                user: {
+                  connect: {
+                    uuid: analysis.userId,
+                  }
+                },
+                channel: {
+                  connect: {
+                    uuid: analysis.channelId,
+                  }
+                },
+              },
+              include: {
+                        user: {
+                          select: {
+                            uuid: true,
+                            firstName: true,
+                            lastName: true,
+                            password: false,
+                            email: true,
+                            companyName: false,
+                      }
+                    },
+                    channel: {
+                          select:{
+                            uuid: true,
+                            name: true,
+                            followers: false,
+                            lastSeenAt: true,
+                            description: false,
+                          }
+                        },
+                }
+            });
+
+            return Analysis.fromPrisma(data);
         }
-    async update(id: string, analysis: Partial<Analysis>): Promise<Analysis> {
-            throw new Error("Method not implemented.");
+    async update(uuid: string, analysis: Partial<Analysis>): Promise<Analysis> {
+      const dataUpdate: any = {
+        title: analysis.title,
+      };
+
+      if(analysis.userId){
+        dataUpdate.user = {
+          connect: {
+            uuid: analysis.userId
+          }
+        };
+      }
+
+      if(analysis.channelId){
+        dataUpdate.channel = {
+          connect: {
+            uuid: analysis.channelId
+          }
+        };
+      }
+
+      const data = await this.prisma.analysis.update({
+                    where: { uuid },
+                    data: dataUpdate,
+                    include: {
+                user: {
+                          select: {
+                            uuid: true,
+                            firstName: true,
+                            lastName: true,
+                            password: false,
+                            email: true,
+                            companyName: false,
+                      }
+                    },
+                    channel: {
+                          select:{
+                            uuid: true,
+                            name: true,
+                            followers: false,
+                            lastSeenAt: true,
+                            description: false,
+                          }
+                        },
+              }
+                  });
+              return Analysis.fromPrisma(data);
         }
-    async delete(id: string): Promise<Analysis> {
-            throw new Error("Method not implemented.");
+    async delete(uuid: string): Promise<Analysis> {
+            const data = await this.prisma.analysis.delete({
+                          where: { uuid },
+                    });
+                    
+            return Analysis.fromPrisma(data);
         }
     ;
 
