@@ -73,6 +73,7 @@ model Channel {
   analysis      Analysis[]
   livestreams   Livestream[]
   videosOnDemand VideoOnDemand[]
+  dataSets DataSet[]
 
   @@map("_channel")
 }
@@ -143,6 +144,11 @@ model DataSet {
   totalFollowers    Int?      @map("totalFollowers_dataSet")
   rank              Int?      @map("rank_dataSet")
   fechaRegistro     String?   @map("fechaRegistro_dataSet")
+
+
+
+  channel       Channel?   @relation(fields: [channelId], references: [uuid])
+  channelId     String?   @map("Channel_uuid_Channel")
 
   @@map("_dataset")
 }
