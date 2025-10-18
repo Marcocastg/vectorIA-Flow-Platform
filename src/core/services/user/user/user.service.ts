@@ -2,6 +2,7 @@ import { HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/commo
 import { createUserDto, updateUserDto } from 'src/application/dto/user';
 import { USER_REPOSITORY } from 'src/core/constants/constants';
 import { User } from 'src/core/entities/user/user.entity';
+import * as bcrypt from 'bcrypt';
 import type { UserRepository } from 'src/core/repositories/user/user.repository';
 import { ValidatorService } from 'src/shared/application/validation/validator.service';
 import { BussinesRuleException } from 'src/shared/domain/exceptions/business-rule.exception';
@@ -30,12 +31,15 @@ export class UserService {
               },
             );
           }
+
+
+          const hashedPassword = await bcrypt.hash(dto.password, 10);
       
           const user = new User(
             null,
             dto.firstName,
             dto.lastName,
-            dto.password,
+            hashedPassword,
             dto.email,
             dto.companyName,
           );

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { SharedModule } from 'src/shared/shared.module';
 import { PrismaModule } from 'src/core/services/prisma/prisma.module';
@@ -6,6 +6,7 @@ import { USER_REPOSITORY } from 'src/core/constants/constants';
 import { UserPrismaRepository } from 'src/infraestructure/persistence/user/user.prisma.repository';
 import { UserService } from 'src/core/services/user/user/user.service';
 import * as index from 'src/application/uses-cases/user/index';
+import { AuthModule } from '../../auth/auth/auth.module';
 
 @Module({
   imports:[SharedModule, PrismaModule],
@@ -21,6 +22,13 @@ import * as index from 'src/application/uses-cases/user/index';
                   index.DeleteUserUseCase,
                   index.UpdateUserUseCase,
                   ],
-                  exports:[UserService, USER_REPOSITORY],
+                  exports:[UserService,{
+                      provide: USER_REPOSITORY,
+                      useClass: UserPrismaRepository,
+                  },index.CreateUserUseCase,
+                  index.GetAllUserUseCase,
+                  index.GetOneUserUseCase,
+                  index.DeleteUserUseCase,
+                  index.UpdateUserUseCase,],
 })
 export class UserModule {}

@@ -11,6 +11,7 @@ import { PlatformModule } from './infraestructure/http/platform/platform/platfor
 import { UserModule } from './infraestructure/http/user/user/user.module';
 import { VideoOnDemandModule } from './infraestructure/http/videoOnDemand/video-on-demand/video-on-demand.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { AuthModule } from './infraestructure/http/auth/auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     PlatformModule,
     UserModule,
     VideoOnDemandModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
