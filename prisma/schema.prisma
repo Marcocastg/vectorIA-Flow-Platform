@@ -74,6 +74,7 @@ model Channel {
   livestreams   Livestream[]
   videosOnDemand VideoOnDemand[]
   dataSets DataSet[]
+  dataSetsKick DataSetKick[]
 
   @@map("_channel")
 }
@@ -166,6 +167,10 @@ model DataSetKick {
   language          String?   @map("language_dataSetKick")
   rankVariation     Int?   @map("rankVariation_dataSetKick")
   fechaRegistro     String?   @map("fechaRegistro_dataSetKick")
+
+  
+  channel       Channel?   @relation(fields: [channelId], references: [uuid])
+  channelId     String?   @map("Channel_uuid_Channel")
 
   @@map("_datasetkick")
 }
