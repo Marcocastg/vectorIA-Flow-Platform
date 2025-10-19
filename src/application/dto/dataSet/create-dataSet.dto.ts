@@ -56,4 +56,10 @@ export class createdataSetDto{
     @Transform(({ value }) => value.trim().replace(/\s+/g, ' '))
     fechaRegistro: string;
 
+    @IsUUID(4,{message: 'channelId must be in UUID format.'})
+    @IsString({message: 'channelId must be a String type.'})
+    @IsNotEmpty({message: 'channelId must not be empty.'})
+    @Transform(({ value }) => (value as string).trim().toLowerCase().replaceAll(' ',''))
+    channelId: string;
+
 }

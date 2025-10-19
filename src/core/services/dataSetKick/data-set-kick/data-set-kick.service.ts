@@ -43,6 +43,7 @@ export class DataSetKickService {
             dto.language,
             dto.rankVariation,
             dto.fechaRegistro,
+            dto.channelId,
           );
       
           return this.repository.save(dataSetChannelKick);

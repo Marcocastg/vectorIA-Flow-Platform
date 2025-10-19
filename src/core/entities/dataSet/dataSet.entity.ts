@@ -1,3 +1,5 @@
+import { Channel } from "../channel/channel.entity";
+
 export class dataSet {
   constructor(
     public uuid: string | null,
@@ -10,6 +12,8 @@ export class dataSet {
     public totalFollowers: number,
     public rank: number,
     public fechaRegistro: string,
+    public channelId: string,
+    public channel?: Channel,   
   ) {}
 
   public desactivar(): void {
@@ -32,6 +36,8 @@ export class dataSet {
       data.totalFollowers,
       data.rank,
       data.fechaRegistro,
+      data.channelId,
+      data.channel,
     );
   }
 }

@@ -10,6 +10,17 @@ export class dataSetPrismaRepository implements DataSetRepository{
     async findById(uuid: string): Promise<dataSet | null> {
         const data = await this.prisma.dataSet.findFirst({
                                     where: { uuid },
+                                    include: {
+                                        channel: {
+                                            select: {
+                                                uuid: false,
+                                                name: true,
+                                                followers: true,
+                                                lastSeenAt: false,
+                                                description: false,
+                                        }
+                                    },
+                                },
                             });
                                 
         return data ? dataSet.fromPrisma(data) : null;
@@ -18,13 +29,36 @@ export class dataSetPrismaRepository implements DataSetRepository{
     async findByName(channelName: string): Promise<dataSet | null> {
         const data = await this.prisma.dataSet.findFirst({
                                     where: { channelName },
+                                    include: {
+                                        channel: {
+                                            select: {
+                                                uuid: false,
+                                                name: true,
+                                                followers: true,
+                                                lastSeenAt: false,
+                                                description: false,
+                                        }
+                                    },
+                                },
                             });
                                 
         return data ? dataSet.fromPrisma(data) : null;
     }
 
     async findAllActive(): Promise<dataSet[]> {
-        const data = await this.prisma.dataSet.findMany({});
+        const data = await this.prisma.dataSet.findMany({
+            include: {
+                                        channel: {
+                                            select: {
+                                                uuid: false,
+                                                name: true,
+                                                followers: true,
+                                                lastSeenAt: false,
+                                                description: false,
+                                        }
+                                    },
+                                },
+        });
                                 
         const respuesta = dataSet.fromPrismaList(data);
                                 
@@ -43,7 +77,23 @@ export class dataSetPrismaRepository implements DataSetRepository{
                                         totalFollowers: dataSetdata.totalFollowers,
                                         rank: dataSetdata.rank,
                                         fechaRegistro: dataSetdata.fechaRegistro,
+                                        channel: {
+                                          connect: {
+                                            uuid: dataSetdata.channelId,
+                                          }
+                                        },
                                       },
+                                      include: {
+                                        channel: {
+                                            select: {
+                                                uuid: false,
+                                                name: true,
+                                                followers: true,
+                                                lastSeenAt: false,
+                                                description: false,
+                                        }
+                                    },
+                                },
                                     });
                         
         return dataSet.fromPrisma(data);
@@ -65,6 +115,17 @@ export class dataSetPrismaRepository implements DataSetRepository{
                               const data = await this.prisma.dataSet.update({
                                             where: { uuid },
                                             data: dataUpdate,
+                                            include: {
+                                        channel: {
+                                            select: {
+                                                uuid: false,
+                                                name: true,
+                                                followers: true,
+                                                lastSeenAt: false,
+                                                description: false,
+                                        }
+                                    },
+                                },
                                           });
         return dataSet.fromPrisma(data);
     }

@@ -41,6 +41,7 @@ export class DataSetService {
             dto.totalFollowers,
             dto.rank,
             dto.fechaRegistro,
+            dto.channelId,
           );
       
           return this.repository.save(dataSetTwitch);

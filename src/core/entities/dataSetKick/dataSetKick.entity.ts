@@ -1,3 +1,5 @@
+import { Channel } from "../channel/channel.entity";
+
 export class dataSetKick {
   constructor(
     public uuid: string | null,
@@ -12,6 +14,8 @@ export class dataSetKick {
     public language: string,
     public rankVariation: number,
     public fechaRegistro: string,
+    public channelId: string,
+    public channel?: Channel,  
   ) {}
 
   public desactivar(): void {
@@ -36,6 +40,8 @@ export class dataSetKick {
       data.language,
       data.rankVariation,
       data.fechaRegistro,
+      data.channelId,
+      data.channel,
     );
   }
 }

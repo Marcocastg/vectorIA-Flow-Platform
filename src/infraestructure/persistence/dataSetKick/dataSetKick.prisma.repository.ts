@@ -10,6 +10,17 @@ export class dataSetKickPrismaRepository implements DataSetKickRepository{
     async findById(uuid: string): Promise<dataSetKick | null> {
         const data = await this.prisma.dataSetKick.findFirst({
                                             where: { uuid },
+                                            include: {
+                                        channel: {
+                                            select: {
+                                                uuid: false,
+                                                name: true,
+                                                followers: true,
+                                                lastSeenAt: false,
+                                                description: false,
+                                        }
+                                    },
+                                },
                                     });
                                         
         return data ? dataSetKick.fromPrisma(data) : null;
@@ -18,13 +29,36 @@ export class dataSetKickPrismaRepository implements DataSetKickRepository{
     async findByName(channelName: string): Promise<dataSetKick | null> {
         const data = await this.prisma.dataSetKick.findFirst({
                                             where: { channelName },
+                                            include: {
+                                        channel: {
+                                            select: {
+                                                uuid: false,
+                                                name: true,
+                                                followers: true,
+                                                lastSeenAt: false,
+                                                description: false,
+                                        }
+                                    },
+                                },
                                     });
                                         
         return data ? dataSetKick.fromPrisma(data) : null;
     }
 
     async findAllActive(): Promise<dataSetKick[]> {
-        const data = await this.prisma.dataSetKick.findMany({});
+        const data = await this.prisma.dataSetKick.findMany({
+            include: {
+                                        channel: {
+                                            select: {
+                                                uuid: false,
+                                                name: true,
+                                                followers: true,
+                                                lastSeenAt: false,
+                                                description: false,
+                                        }
+                                    },
+                                },
+        });
                                         
         const respuesta = dataSetKick.fromPrismaList(data);
                                         
@@ -45,7 +79,23 @@ export class dataSetKickPrismaRepository implements DataSetKickRepository{
                                             language: dataSetKickdata.language,
                                             rankVariation: dataSetKickdata.rankVariation,
                                             fechaRegistro: dataSetKickdata.fechaRegistro,
+                                            channel: {
+                                          connect: {
+                                            uuid: dataSetKickdata.channelId,
+                                          }
+                                        },
                                             },
+                                            include: {
+                                        channel: {
+                                            select: {
+                                                uuid: false,
+                                                name: true,
+                                                followers: true,
+                                                lastSeenAt: false,
+                                                description: false,
+                                        }
+                                    },
+                                },
                                     });
                                 
         return dataSetKick.fromPrisma(data);
@@ -69,6 +119,17 @@ export class dataSetKickPrismaRepository implements DataSetKickRepository{
         const data = await this.prisma.dataSetKick.update({
                     where: { uuid },
                     data: dataUpdate,
+                    include: {
+                                        channel: {
+                                            select: {
+                                                uuid: false,
+                                                name: true,
+                                                followers: true,
+                                                lastSeenAt: false,
+                                                description: false,
+                                        }
+                                    },
+                                },
         });
 
         return dataSetKick.fromPrisma(data);
