@@ -1,0 +1,9 @@
+-- AlterTable
+ALTER TABLE "_dataset" ALTER COLUMN "averageViewers_dataSet" SET DATA TYPE DOUBLE PRECISION,
+ALTER COLUMN "hoursWatched_dataSet" SET DATA TYPE DOUBLE PRECISION,
+ALTER COLUMN "minutesStreamed_dataSet" SET DATA TYPE DOUBLE PRECISION;
+
+-- AlterTable
+ALTER TABLE "_datasetkick" ALTER COLUMN "averageViewers_dataSetKick" SET DATA TYPE DOUBLE PRECISION,
+ALTER COLUMN "hoursWatched_dataSetKick" SET DATA TYPE DOUBLE PRECISION,
+ALTER COLUMN "hoursStreamed_dataSetKick" SET DATA TYPE DOUBLE PRECISION;
