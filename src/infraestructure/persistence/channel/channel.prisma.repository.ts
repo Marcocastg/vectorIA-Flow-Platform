@@ -16,7 +16,7 @@ export class ChannelPrismaRepository implements ChannelRepository{
                                         uuid: false,
                                         name: true,
                                         url: true,
-                                        logoUrl: false,
+                                        logoUrl: true,
                                 }
                             },
                         }
@@ -34,7 +34,7 @@ export class ChannelPrismaRepository implements ChannelRepository{
                                         uuid: false,
                                         name: true,
                                         url: true,
-                                        logoUrl: false,
+                                        logoUrl: true,
                                 }
                             },
                         }
@@ -51,7 +51,7 @@ export class ChannelPrismaRepository implements ChannelRepository{
                                         uuid: false,
                                         name: true,
                                         url: true,
-                                        logoUrl: false,
+                                        logoUrl: true,
                                 }
                             },
                         }
@@ -81,7 +81,7 @@ export class ChannelPrismaRepository implements ChannelRepository{
                                                 uuid: false,
                                                 name: true,
                                                 url: true,
-                                                logoUrl: false,
+                                                logoUrl: true,
                                         }
                                     },
                                 }
@@ -115,7 +115,7 @@ export class ChannelPrismaRepository implements ChannelRepository{
                                                 uuid: false,
                                                 name: true,
                                                 url: true,
-                                                logoUrl: false,
+                                                logoUrl: true,
                                             }
                                         },
                                     }
