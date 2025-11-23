@@ -8,6 +8,16 @@ import passport from 'passport';
 async function bootstrap() {
   const logger = new Logger('API');
   const app = await NestFactory.create(AppModule);
+
+  app.enableCors({
+    origin: [
+      'https://www.vectoria.me',       // Tu dominio de producción
+      'http://localhost:5173',         // Tu entorno local (Vite)
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Permite enviar cookies/sesiones
+  });
+
   app.setGlobalPrefix('api');
 
   app.useGlobalPipes(
