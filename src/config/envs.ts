@@ -4,6 +4,9 @@ interface EnvVars {
   PORT: number;
   DATABASE_URL: string;
   SESSION_SECRET: string;
+  TWITCH_CLIENT_ID: string;
+  TWITCH_CLIENT_SECRET: string;
+  PYTHON_API_URL: string;
 }
 
 const envSchema = joi
@@ -11,6 +14,9 @@ const envSchema = joi
     PORT: joi.number().required(),
     DATABASE_URL: joi.string().required(),
     SESSION_SECRET: joi.string().required(),
+    TWITCH_CLIENT_ID: joi.string().required(),
+    TWITCH_CLIENT_SECRET: joi.string().required(),
+    PYTHON_API_URL: joi.string().uri().required(),
   })
   .unknown(true);
 
@@ -26,4 +32,7 @@ export const envs = {
   port: envVars.PORT,
   databaseUrl: envVars.DATABASE_URL,
   sessionSecret: envVars.SESSION_SECRET,
+  twitchClientId: envVars.TWITCH_CLIENT_ID,
+  twitchClientSecret: envVars.TWITCH_CLIENT_SECRET,
+  PYTHON_API_URL: envVars.PYTHON_API_URL,
 };

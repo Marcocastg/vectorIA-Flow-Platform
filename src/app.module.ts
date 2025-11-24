@@ -12,6 +12,9 @@ import { UserModule } from './infraestructure/http/user/user/user.module';
 import { VideoOnDemandModule } from './infraestructure/http/videoOnDemand/video-on-demand/video-on-demand.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { AuthModule } from './infraestructure/http/auth/auth/auth.module';
+import { HttpModule } from '@nestjs/axios';
+import { ScheduleModule } from '@nestjs/schedule';
+import { PredictionsModule } from './infraestructure/http/predictions/predictions.module';
 
 @Module({
   imports: [
@@ -26,6 +29,8 @@ import { AuthModule } from './infraestructure/http/auth/auth/auth.module';
     UserModule,
     VideoOnDemandModule,
     AuthModule,
+    HttpModule,
+    PredictionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
