@@ -7,6 +7,7 @@ interface EnvVars {
   TWITCH_CLIENT_ID: string;
   TWITCH_CLIENT_SECRET: string;
   PYTHON_API_URL: string;
+  GEMINI_API_KEY: string;
 }
 
 const envSchema = joi
@@ -17,6 +18,7 @@ const envSchema = joi
     TWITCH_CLIENT_ID: joi.string().required(),
     TWITCH_CLIENT_SECRET: joi.string().required(),
     PYTHON_API_URL: joi.string().uri().required(),
+    GEMINI_API_KEY: joi.string().required(),
   })
   .unknown(true);
 
@@ -35,4 +37,5 @@ export const envs = {
   twitchClientId: envVars.TWITCH_CLIENT_ID,
   twitchClientSecret: envVars.TWITCH_CLIENT_SECRET,
   PYTHON_API_URL: envVars.PYTHON_API_URL,
+  GEMINI_API_KEY: envVars.GEMINI_API_KEY,
 };

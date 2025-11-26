@@ -15,4 +15,10 @@ export class PredictionsController {
     // data: Son los campos avgViewers_d1, followers_d1, etc.
     return this.predictionsService.getPrediction(platform, data);
   }
+
+  @Post('analyze')
+  async analyze(@Body() body: any) {
+    // body debe tener: { platform: 'twitch', metrics: { ... } }
+    return this.predictionsService.getAnalysis(body.platform, body.metrics);
+  }
 }
