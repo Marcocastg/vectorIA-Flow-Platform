@@ -25,7 +25,7 @@ export class PredictionsService {
     this.model = this.genAI.getGenerativeModel({ 
       model: "gemini-2.0-flash",
       generationConfig: {
-        temperature: 0.7, // Balance perfecto entre creatividad y precisión
+        temperature: 0.8, // Balance perfecto entre creatividad y precisión
         topK: 40,
         topP: 0.95,
         maxOutputTokens: 1024, // Suficiente para un análisis de 3-4 párrafos
@@ -92,30 +92,25 @@ export class PredictionsService {
 
       // Ingeniería del Prompt: Diseñado para sonar como un consultor experto
       const prompt = `
-        Actúa como un Consultor Senior de Estrategia Digital especializado en Streaming y Creación de Contenido.
-        Tu cliente es un streamer de la plataforma ${platform.toUpperCase()}.
+        Actúa como un estratega digital experto y mentor empático. Estás hablando directamente con un streamer de ${platform.toUpperCase()}.
         
-        Analiza sus métricas proyectadas para el próximo mes:
+        Sus métricas proyectadas para el próximo mes son:
         - Seguidores actuales estimados: ${metrics.currentFollowers}
-        - Crecimiento proyectado (30 días): ${metrics.growthPrediction} (Nuevos seguidores)
-        - Audiencia promedio estimada: ${metrics.viewersPrediction} (Viewers simultáneos)
+        - Crecimiento proyectado (30 días): ${metrics.growthPrediction} nuevos seguidores
+        - Audiencia promedio estimada: ${metrics.viewersPrediction} espectadores simultáneos
         
         TAREA:
-        Genera un reporte estratégico breve, directo y motivador en español.
-        Usa el siguiente formato exacto (Markdown):
-
-        ### 📊 Diagnóstico Rápido
-        [Escribe aquí 1 o 2 frases contundentes sobre su estado actual. ¿Está estancado, creciendo orgánicamente o explotando?]
-
-        ### 🔮 Interpretación de la IA
-        [Explica qué significan estos números para su carrera. Sé honesto pero constructivo. Si el crecimiento es bajo, menciónalo como oportunidad.]
-
-        ### 🚀 Plan de Acción (3 Tácticas)
-        1. **[Táctica 1]:** [Consejo específico basado en sus viewers, ej. si son pocos, enfócate en retención; si son muchos, enfócate en monetización]
-        2. **[Táctica 2]:** [Consejo sobre interacción o contenido]
-        3. **[Táctica 3]:** [Consejo sobre consistencia o redes sociales]
+        Escribe una respuesta breve, fluida y natural en español (máximo 2 o 3 párrafos cortos).
         
-        El tono debe ser profesional, analítico y orientado a resultados. No uses saludos genéricos como "Hola". Ve directo al grano.
+        REGLAS DE ESTILO (IMPORTANTE):
+        1. NO uses encabezados, títulos (como "Diagnóstico"), negritas excesivas ni listas con viñetas.
+        2. Escribe como si fuera un correo personal o una charla cara a cara.
+        3. El tono debe ser profesional pero cercano y motivador.
+        
+        ESTRUCTURA NARRATIVA:
+        Empieza con una valoración honesta de su situación actual basada en los números (¿es un crecimiento sólido, lento o explosivo?).
+        Luego, integra en la misma narrativa 2 o 3 consejos tácticos muy específicos para mejorar (por ejemplo sobre retención, interacción o contenido), pero hazlo de forma fluida dentro del texto, no como una lista.
+        Termina con una frase genuina de cierre que inspire confianza.
       `;
 
       // Llamada al modelo generativo

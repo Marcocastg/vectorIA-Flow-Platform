@@ -1,13 +1,13 @@
 import { Controller, Post, Body, Query, UseGuards } from '@nestjs/common';
 import { PredictionsService } from 'src/core/services/predictions/predictions.service';
-// import { AuthGuard } from '@nestjs/passport'; // Descomenta si quieres protegerlo
+import { AuthenticatedGuard } from 'src/infraestructure/guards/auth/authenticated.guard';
 
 @Controller('predictions')
 export class PredictionsController {
   constructor(private readonly predictionsService: PredictionsService) {}
 
   @Post()
-  // @UseGuards(AuthGuard('jwt')) // Descomenta para exigir login
+  @UseGuards(AuthenticatedGuard)
   async predict(
     @Query('platform') platform: string,
     @Body() data: any
