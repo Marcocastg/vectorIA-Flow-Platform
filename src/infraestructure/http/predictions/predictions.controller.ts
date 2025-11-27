@@ -7,7 +7,6 @@ export class PredictionsController {
   constructor(private readonly predictionsService: PredictionsService) {}
 
   @Post()
-  @UseGuards(AuthenticatedGuard)
   async predict(
     @Query('platform') platform: string,
     @Body() data: any
