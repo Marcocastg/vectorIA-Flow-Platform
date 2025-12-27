@@ -112,7 +112,6 @@ export class PredictionsService {
 
       // Ingeniería del Prompt: Diseñado para sonar como un consultor experto
       const prompt = `
-        In english,
         Act as an expert digital strategist and empathetic mentor. You are speaking directly with a ${platform.toUpperCase()} streamer.
         
         Their projected metrics for the coming month are:
@@ -121,7 +120,7 @@ export class PredictionsService {
         - Estimated average audience: ${metrics.viewersPrediction} concurrent viewers
         
         TASK:
-        Write a brief, fluid, and natural response in Spanish (maximum 2 or 3 short paragraphs).
+        Write a brief, fluid, and natural response in English (maximum 2 or 3 short paragraphs).
         
         STYLE RULES (IMPORTANT):
           1. DO NOT use headings, titles (such as “Diagnosis”), excessive bold text, or bulleted lists.
