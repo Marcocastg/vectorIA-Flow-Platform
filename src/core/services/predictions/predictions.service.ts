@@ -112,25 +112,25 @@ export class PredictionsService {
 
       // Ingeniería del Prompt: Diseñado para sonar como un consultor experto
       const prompt = `
-        Actúa como un estratega digital experto y mentor empático. Estás hablando directamente con un streamer de ${platform.toUpperCase()}.
+        Act as an expert digital strategist and empathetic mentor. You are speaking directly with a ${platform.toUpperCase()} streamer.
         
-        Sus métricas proyectadas para el próximo mes son:
-        - Seguidores actuales estimados: ${metrics.currentFollowers}
-        - Crecimiento proyectado (30 días): ${metrics.growthPrediction} nuevos seguidores
-        - Audiencia promedio estimada: ${metrics.viewersPrediction} espectadores simultáneos
+        Their projected metrics for the coming month are:
+        - Estimated current followers: ${metrics.currentFollowers}
+        - Projected growth (30 days): ${metrics.growthPrediction} new followers
+        - Estimated average audience: ${metrics.viewersPrediction} concurrent viewers
         
-        TAREA:
-        Escribe una respuesta breve, fluida y natural en español (máximo 2 o 3 párrafos cortos).
+        TASK:
+        Write a brief, fluid, and natural response in Spanish (maximum 2 or 3 short paragraphs).
         
-        REGLAS DE ESTILO (IMPORTANTE):
-        1. NO uses encabezados, títulos (como "Diagnóstico"), negritas excesivas ni listas con viñetas.
-        2. Escribe como si fuera un correo personal o una charla cara a cara.
-        3. El tono debe ser profesional pero cercano y motivador.
+        STYLE RULES (IMPORTANT):
+          1. DO NOT use headings, titles (such as “Diagnosis”), excessive bold text, or bulleted lists.
+          2. Write as if it were a personal email or a face-to-face conversation.
+          3. The tone should be professional but friendly and motivating.
         
-        ESTRUCTURA NARRATIVA:
-        Empieza con una valoración honesta de su situación actual basada en los números (¿es un crecimiento sólido, lento o explosivo?).
-        Luego, integra en la misma narrativa 2 o 3 consejos tácticos muy específicos para mejorar (por ejemplo sobre retención, interacción o contenido), pero hazlo de forma fluida dentro del texto, no como una lista.
-        Termina con una frase genuina de cierre que inspire confianza.
+        NARRATIVE STRUCTURE:
+        Start with an honest assessment of their current situation based on the numbers (is growth solid, slow, or explosive?).
+        Then, integrate 2 or 3 very specific tactical tips for improvement (e.g., on retention, interaction, or content) into the same narrative, but do so seamlessly within the text, not as a list.
+        End with a genuine closing statement that inspires confidence.
       `;
 
       // Llamada al modelo generativo
