@@ -112,6 +112,7 @@ export class PredictionsService {
 
       // Ingeniería del Prompt: Diseñado para sonar como un consultor experto
       const prompt = `
+        In english,
         Act as an expert digital strategist and empathetic mentor. You are speaking directly with a ${platform.toUpperCase()} streamer.
         
         Their projected metrics for the coming month are:
