@@ -15,6 +15,10 @@ export class PredictionsService {
   private genAI: GoogleGenerativeAI;
   private model: any;
 
+  private readonly axiosConfig = {
+    timeout: 60000, // 60000ms = 60 segundos
+  };
+
   constructor(private readonly httpService: HttpService) {
     // 1. Inicializamos Gemini con tu API Key
     // Asegúrate de tener GEMINI_API_KEY en tu archivo .env (y en Railway)
@@ -31,6 +35,22 @@ export class PredictionsService {
         maxOutputTokens: 1024, // Suficiente para un análisis de 3-4 párrafos
       }
     }); 
+  }
+
+  async wakeUpModels() {
+    try {
+      this.logger.log('⏰ Enviando señal de despertador a la IA...');
+      // Llamamos a la raíz "/" de Python que es ligera y rápida
+      // Usamos firstValueFrom o lastValueFrom
+      const response = await lastValueFrom(
+        this.httpService.get(this.pythonUrl, this.axiosConfig)
+      );
+      return { status: 'awake', message: 'Motor de IA listo' };
+    } catch (error) {
+      // No lanzamos error para no bloquear el frontend, solo logueamos
+      this.logger.warn('El motor de IA aún está despertando...');
+      return { status: 'waking_up' };
+    }
   }
 
   // ===========================================================================
@@ -56,7 +76,7 @@ export class PredictionsService {
 
       // Llamada HTTP a tu API de Python
       const response = await lastValueFrom(
-        this.httpService.post(fullUrl, data)
+        this.httpService.post(fullUrl, data, this.axiosConfig),
       );
 
       if (response.data && response.data.status === 'success') {

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Query, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Query, UseGuards, Get } from '@nestjs/common';
 import { PredictionsService } from 'src/core/services/predictions/predictions.service';
 import { AuthenticatedGuard } from 'src/infraestructure/guards/auth/authenticated.guard';
 
@@ -19,5 +19,11 @@ export class PredictionsController {
   async analyze(@Body() body: any) {
     // body debe tener: { platform: 'twitch', metrics: { ... } }
     return this.predictionsService.getAnalysis(body.platform, body.metrics);
+  }
+
+  // GET /api/predictions/wakeup
+  @Get('wakeup')
+  async wakeUp() {
+    return this.predictionsService.wakeUpModels();
   }
 }
