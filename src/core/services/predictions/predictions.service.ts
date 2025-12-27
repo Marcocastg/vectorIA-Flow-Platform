@@ -27,7 +27,7 @@ export class PredictionsService {
     // 2. Configuración del Modelo "Pro"
     // Usamos gemini-1.5-pro para obtener razonamiento avanzado y mejores consejos.
     this.model = this.genAI.getGenerativeModel({ 
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash-lite",
       generationConfig: {
         temperature: 0.8, // Balance perfecto entre creatividad y precisión
         topK: 40,
