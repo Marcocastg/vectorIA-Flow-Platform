@@ -26,6 +26,7 @@ model User {
   email       String     @unique @map("email_User")
   companyName String?    @map("companyName_User")
   analysis    Analysis[]
+  reports     Report[]
 
   @@map("_user")
 }
@@ -131,4 +132,18 @@ model DataSetKick {
   channel        Channel? @relation(fields: [channelId], references: [uuid])
 
   @@map("_datasetkick")
+}
+
+model Report {
+  uuid      String   @id @default(uuid()) @map("uuid_Report")
+  createdAt   DateTime @default(now()) @map("createdAt_Report")
+  userId    String  @map("User_uuid_User")
+  user      User    @relation(fields: [userId], references: [uuid])
+  inputData      Json     @map("inputData_Report")
+  predictionData Json     @map("predictionData_Report")
+  channelName String  @map("channelName_Report")
+  platformName    String  @map("platformName_Report") // 'twitch' o 'kick'
+  aiAnalysis     String?  @db.Text @map("aiAnalysis_Report")
+
+  @@map("_report")
 }
