@@ -68,8 +68,18 @@ export class PredictionsController {
       aiAnalysis: aiAnalysisText
     };
 
-    this.logger.log(`Guardando reporte para usuario: ${userId}`);
-    await this.createReportUseCase.execute(reportData, userId);
+    this.logger.log(`Intentando guardar reporte para usuario: ${userId}`);
+    try {
+      const saveResult: any = await this.createReportUseCase.execute(reportData, userId);
+      
+      if (saveResult && saveResult.isSuccess === false) {
+        this.logger.error(`❌ ERROR AL GUARDAR (UseCase): ${JSON.stringify(saveResult.error)}`);
+      } else {
+        this.logger.log(`✅ Reporte guardado correctamente en la BD.`);
+      }
+    } catch (dbError) {
+      this.logger.error(`❌ EXCEPCIÓN AL GUARDAR: ${dbError.message}`, dbError.stack);
+    }
 
     // Retornar el análisis al frontend
     return { analysis: aiAnalysisText };
