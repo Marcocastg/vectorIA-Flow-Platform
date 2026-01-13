@@ -20,23 +20,42 @@ export class PredictionsController {
 
   @Post('analyze')
   async analyze(@Body() body: any, @Req() req: any) {
-    this.logger.log(`Usuario en request: ${JSON.stringify(req.user)}`);
+    this.logger.log('--- DEBUG REQUEST ---');
+    this.logger.log(`SessionID: ${req.sessionID}`);
+    this.logger.log(`User en Req: ${JSON.stringify(req.user)}`);
+    this.logger.log(`Is Authenticated: ${req.isAuthenticated()}`);
+
+    const user = req.user || req.session?.passport?.user;
+
+    const userId = typeof user === 'string' ? user : user.uuid || user.id;
+
+    if (!userId) {
+         throw new UnauthorizedException('Error crítico: No se pudo extraer el UUID del usuario.');
+    }
 
     if (!req.user || !req.user.uuid) {
         throw new UnauthorizedException('No se pudo identificar al usuario. La sesión puede haber expirado.');
     }
 
-    const analysisResult = await this.predictionsService.getAnalysis(
-      body.platform, 
-      body.metrics
-    );
+    let aiAnalysisText = "Análisis pendiente.";
+    try {
+        const analysisResult = await this.predictionsService.getAnalysis(
+            body.platform, 
+            body.metrics
+        );
+        aiAnalysisText = analysisResult.analysis;
+    } catch (error) {
+        this.logger.warn("Gemini falló, pero guardaremos el reporte igual.");
+        aiAnalysisText = "El análisis de IA no pudo generarse en este momento, pero tus datos han sido guardados.";
+    }
+
     
     const reportData: createReportDto = {
       channelName: body.channelName || 'Unknown Channel',
       platformName: body.platform,
       
       // Datos de entrada originales (D1, D14)
-      inputData: body.rawInput, 
+      inputData: body.rawInput || {}, 
       
       // Resultados de la predicción numérica
       predictionData: {
@@ -46,13 +65,14 @@ export class PredictionsController {
       } as any,
       
       // El texto que acabamos de generar con Gemini
-      aiAnalysis: analysisResult.analysis
+      aiAnalysis: aiAnalysisText
     };
 
-    await this.createReportUseCase.execute(reportData, req.user.uuid);
+    this.logger.log(`Guardando reporte para usuario: ${userId}`);
+    await this.createReportUseCase.execute(reportData, userId);
 
     // Retornar el análisis al frontend
-    return analysisResult;
+    return { analysis: aiAnalysisText };
   }
 
   // GET /api/predictions/wakeup
