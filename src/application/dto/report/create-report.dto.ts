@@ -6,13 +6,14 @@ export class createReportDto{
     @IsOptional() 
     @IsDate()
     @Type(() => Date)
-    createdAt: Date;
+    createdAt?: Date;
     
+    @IsOptional()
     @IsUUID(4,{message: 'userId must be in UUID format.'})
     @IsString({message: 'userId must be a String type.'})
     @IsNotEmpty({message: 'userId must not be empty.'})
     @Transform(({ value }) => (value as string).trim().toLowerCase().replaceAll(' ',''))
-    userID: string;
+    userID?: string;
 
     @IsObject() 
     @ValidateNested()

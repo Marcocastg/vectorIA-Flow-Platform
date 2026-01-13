@@ -14,10 +14,10 @@ export class CreateReportUseCase {
   ) {}
 
   async execute(
-    dto: createReportDto,
+    dto: createReportDto, userId: string
   ): Promise<Result<Report>> {
     
-    const createDto = {...dto};
+    const createDto = {userId, ...dto};
 
     try {
       const report = await this.reportService.crearReport(createDto);

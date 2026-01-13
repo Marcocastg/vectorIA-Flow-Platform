@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Req, UseGuards } from "@nestjs/common";
 import { createReportDto, UpdateReportDto } from "src/application/dto/report";
 import * as useCase from 'src/application/uses-cases/report/index'
+import { AuthenticatedGuard } from "src/infraestructure/guards/auth/authenticated.guard";
 import { ParseObjectIdPipe } from "src/shared/pipes/parse-object-id.pipe";
 
 @Controller('report')
+@UseGuards(AuthenticatedGuard)
 export class ReportController {
 
     constructor(
@@ -15,8 +17,8 @@ export class ReportController {
             ){}
         
             @Post()
-            async create(@Body() dto: createReportDto ){
-                    const result = await this.createUseCase.execute(dto);
+            async create(@Body() dto: createReportDto, @Req() req: any){
+                    const result = await this.createUseCase.execute(dto, req.user.uuid);
             
                     if(result.isFailure){
                         if (result.error) {
@@ -28,7 +30,7 @@ export class ReportController {
             
                     return {
                         data: result.getValue(),
-                        message: 'Channel creado.'
+                        message: 'Report creado.'
                     }
             
             }
