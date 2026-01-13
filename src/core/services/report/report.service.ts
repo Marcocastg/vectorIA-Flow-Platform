@@ -31,8 +31,8 @@ export class ReportService {
               
                   const report = new Report(
                     null,
-                    dto.createdAt || null,
-                    dto.userID,
+                    dto.createdAt || new Date(),
+                    dto.userID || '',
                     dto.inputData,
                     dto.predictionData,
                     dto.channelName,
