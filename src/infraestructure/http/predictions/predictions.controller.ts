@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Query, UseGuards, Get, Req } from '@nestjs/common';
+import { Controller, Post, Body, Query, UseGuards, Get, Req, Logger, UnauthorizedException } from '@nestjs/common';
 import { createReportDto } from 'src/application/dto/report';
 import { CreateReportUseCase } from 'src/application/uses-cases/report';
 import { PredictionsService } from 'src/core/services/predictions/predictions.service';
@@ -6,6 +6,8 @@ import { PredictionsService } from 'src/core/services/predictions/predictions.se
 @Controller('predictions')
 export class PredictionsController {
   constructor(private readonly predictionsService: PredictionsService, private readonly createReportUseCase: CreateReportUseCase) {}
+
+  private readonly logger = new Logger(PredictionsController.name);
 
   @Post()
   async predict(
@@ -18,6 +20,12 @@ export class PredictionsController {
 
   @Post('analyze')
   async analyze(@Body() body: any, @Req() req: any) {
+    this.logger.log(`Usuario en request: ${JSON.stringify(req.user)}`);
+
+    if (!req.user || !req.user.uuid) {
+        throw new UnauthorizedException('No se pudo identificar al usuario. La sesión puede haber expirado.');
+    }
+
     const analysisResult = await this.predictionsService.getAnalysis(
       body.platform, 
       body.metrics
