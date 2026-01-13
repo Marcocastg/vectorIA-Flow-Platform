@@ -13,7 +13,7 @@ export class createReportDto{
     @IsString({message: 'userId must be a String type.'})
     @IsNotEmpty({message: 'userId must not be empty.'})
     @Transform(({ value }) => (value as string).trim().toLowerCase().replaceAll(' ',''))
-    userID?: string;
+    userId?: string;
 
     @IsObject() 
     @ValidateNested()
