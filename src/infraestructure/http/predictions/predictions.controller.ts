@@ -95,7 +95,8 @@ export class PredictionsController {
       const saveResult: any = await this.createReportUseCase.execute(reportData, userId);
       
       if (saveResult && saveResult.isSuccess === false) {
-        this.logger.error(`❌ ERROR AL GUARDAR (UseCase): ${JSON.stringify(saveResult.error)}`);
+        const errorMsg = saveResult.error?.message || JSON.stringify(saveResult.error);
+        this.logger.error(`❌ ERROR DE VALIDACIÓN: ${errorMsg}`);
       } else {
         this.logger.log(`✅ Reporte guardado correctamente en la BD.`);
       }
