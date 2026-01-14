@@ -90,6 +90,8 @@ class inputDataDto{
     @Max(9999999999)
     @IsNumber({},{message: 'comments_least_viewed must be a Number type(Integer/Float/Decimal).'})
     comments_least_viewed?: number;
+
+    [key: string]: any;
 }
 
 class predictionDataDto{
@@ -106,4 +108,6 @@ class predictionDataDto{
 
     @IsNumber({},{message: 'growth_net must be a Number type(Integer/Float/Decimal).'})
     growth_net: number;
+
+    [key: string]: any;
 }
