@@ -68,16 +68,17 @@ class inputDataDto{
     @IsNumber({},{message: 'avg_viewers_2 must be a Number type(Integer/Float/Decimal).'})
     avg_viewers_2: number;
 
-    
+    @IsOptional()
     @Min(0.0)
     @Max(44641)
     @IsNumber({},{message: 'time_streamed_1 must be a Number type(Integer/Float/Decimal).'})
-    time_streamed_1: number;
+    time_streamed_1?: number;
 
+    @IsOptional()
     @Min(0.0)
     @Max(44641)
     @IsNumber({},{message: 'time_streamed_2 must be a Number type(Integer/Float/Decimal).'})
-    time_streamed_2: number;
+    time_streamed_2?: number;
 
     @IsOptional()
     @Min(0.0)
