@@ -110,5 +110,9 @@ class predictionDataDto{
     @IsNumber({},{message: 'growth_net must be a Number type(Integer/Float/Decimal).'})
     growth_net: number;
 
+    @IsOptional()
+    @IsNumber()
+    debug_crecimiento?: number;
+
     [key: string]: any;
 }
