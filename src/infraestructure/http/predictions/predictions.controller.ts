@@ -58,6 +58,8 @@ export class PredictionsController {
             followers2: Number(raw.followers_d14 || 0),
             avgViewers1: Number(raw.avgViewers_d1 || 0),
             avgViewers2: Number(raw.avgViewers_d14 || 0),
+            time_streamed_1: Number(raw.minutesStreamed_d1 || 0),
+            time_streamed_2: Number(raw.minutesStreamed_d14 || 0),
             // Opcionales
             comments_most_viewed: Number(raw.comments_most_viewed || 0),
             comments_least_viewed: Number(raw.comments_least_viewed || 0),
@@ -68,6 +70,8 @@ export class PredictionsController {
             followers2: Number(raw.FOLLOWERS_D21 || 0),
             avgViewers1: Number(raw.AVG_VIEWERS_D1 || 0), // O D14 según tu lógica
             avgViewers2: Number(raw.AVG_VIEWERS_D14 || 0),
+            time_streamed_1: Number(raw.HOURS_STREAMED_D1 || 0),
+            time_streamed_2: Number(raw.HOURS_STREAMED_D14 || 0),
         };
     }
 
