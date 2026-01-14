@@ -12,10 +12,11 @@ export class ValidatorService {
     const instance = plainToInstance(DtoClass, dto);
     const errors = await validate(instance, {
       whitelist: true,
-      forbidNonWhitelisted: true,
+      forbidNonWhitelisted: false,
     });
 
     if (errors.length > 0) {
+      console.log('🔍 DETALLE DE ERROR DE VALIDACIÓN:', JSON.stringify(errors, null, 2));
       const message = this.formatErrors(errors);
       throw new ValidationError(message);
     }
@@ -25,7 +26,18 @@ export class ValidatorService {
     return errors
       .map((error) => {
         const constraints = Object.values(error.constraints || {});
-        return constraints.join(', ');
+        // Errores en niveles inferiores (anidados)
+        if (error.children && error.children.length > 0) {
+            const childErrors = this.formatErrors(error.children);
+            return `${error.property} -> { ${childErrors} }`;
+        }
+
+        // Retornar mensaje
+        if (constraints.length > 0) {
+            return `${error.property}: ${constraints.join(', ')}`;
+        }
+        
+        return `${error.property}: Error de estructura inválida`;
       })
       .join(' | ');
   }

@@ -15,14 +15,16 @@ export class createReportDto{
     @Transform(({ value }) => (value as string).trim().toLowerCase().replaceAll(' ',''))
     userId?: string;
 
-    @IsObject() 
-    @ValidateNested()
-    @Type(() => inputDataDto)
+    // @IsObject() 
+    // @ValidateNested()
+    // @Type(() => inputDataDto)
+    @IsOptional()
     inputData: JSON;
     
-    @IsObject()
-    @ValidateNested()
-    @Type(() => predictionDataDto)
+    // @IsObject()
+    // @ValidateNested()
+    // @Type(() => predictionDataDto)
+    @IsOptional()
     predictionData: JSON;
 
     @MinLength(1, {message: 'channelName must have at least 1 character.'})
