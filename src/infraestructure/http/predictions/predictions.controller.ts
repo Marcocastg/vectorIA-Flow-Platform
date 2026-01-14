@@ -37,6 +37,9 @@ export class PredictionsController {
         throw new UnauthorizedException('No se pudo identificar al usuario. La sesión puede haber expirado.');
     }
 
+    this.logger.log('--- DEBUG RAW INPUT ---');
+    this.logger.log(JSON.stringify(body.rawInput, null, 2));
+
     let aiAnalysisText = "Análisis pendiente.";
     try {
         const analysisResult = await this.predictionsService.getAnalysis(
